@@ -29,10 +29,76 @@ import csv
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
-# Inicialización del Catálogo de libros
+# Inicialización del Catálogo de artistas y obras
+
+def initCatalog():
+    """
+    Llama la funcion de inicializacion del catalogo del modelo.
+    """
+    catalog = model.newCatalog()
+    return catalog
 
 # Funciones para la carga de datos
 
+def loadData(catalog):
+    """
+    Carga los datos de los archivos y carga los datos en la
+    estructura de datos
+    """
+    loadArtistas(catalog)
+    loadObras(catalog)
+    sortArtistasC(catalog)
+    sortObrasA(catalog)
+    sortObrasAT(catalog)
+    sortObrasAN(catalog)
+    
+
+def loadArtistas(catalog):
+    """
+    Carga los artistas del archivo y los agrega a la lista de artistas.
+    """
+    artistsFile = cf.data_dir + 'GoodReads/Artists-utf8-small.csv'
+    input_file = csv.DictReader(open(artistsFile, encoding='utf-8'))
+    for artist in input_file:
+        model.addArtist(catalog, artist)
+
+
+def loadObras(catalog):
+    """
+    Carga todos laas obras del archivo y los agrega a la lista de obras.
+    """
+    artworksFile = cf.data_dir + 'GoodReads/Artworks-utf8-small.csv'
+    input_file = csv.DictReader(open(artworksFile, encoding='utf-8'))
+    for artwork in input_file:
+        model.addArtwork(catalog, artwork)
+
+
 # Funciones de ordenamiento
 
-# Funciones de consulta sobre el catálogo
+def sortArtistasC(catalog):
+    """
+    Ordena los artistas en lista cronologica
+    """
+    model.sortArtistasC(catalog)
+
+def sortObrasA(catalog):
+    """
+    Ordena las obras en orden de adquisición
+    """
+    model.sortObrasA(catalog)
+
+def sortObrasAT(catalog):
+    """
+    Ordena las obras por la técnica de su creador
+    """
+    model.sortObrasAT(catalog)
+
+def sortObrasAN(catalog):
+    """
+    Ordena las obras por la nacionalidad de su creador
+    """
+    model.sortObrasAN(catalog)
+
+
+
+

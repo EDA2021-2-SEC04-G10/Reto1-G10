@@ -37,9 +37,29 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("2- Lista cronologica de artistas")
+    print("3- Lista cronologica de las adquisiciones")
+    print("4- Clasificar las obras de un artista por tecnica")
+    print("5- Clasificar las obras por la nacionalidad de su creador")
+    print("0- Salir")
+
+
+def initCatalog():
+    """
+    Inicializa el catalogo de artistas y obras
+    """
+    return controller.initCatalog()
+
+
+def loadData(catalog):
+    """
+    Carga los artistas y obras en la estructura de datos
+    """
+    controller.loadData(catalog)
+
 
 catalog = None
+
 
 """
 Menu principal
