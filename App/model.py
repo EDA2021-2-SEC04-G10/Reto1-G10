@@ -74,12 +74,12 @@ def addArtwork(catalog, artwork):
                     artwork['Medium'],artwork['Dimensions'],
                     artwork['CreditLine'],artwork['AccessionNumber'],
                     artwork['Classification'],artwork['Department'],
-                    artwork['DateAdquired'],artwork['Cataloged'],
-                    artwork['URL'],artwork['Circumference(cm)'],
-                    artwork['Depth(cm)'],artwork['Diameter(cm)'],
-                    artwork['Height(cm)'],artwork['Length(cm)'],
-                    artwork['Weight(kg)'],artwork['Width(cm)'],
-                    artwork['Seat Height(cm)'],artwork['Duration(sec.)'])
+                    artwork['DateAcquired'],artwork['Cataloged'],
+                    artwork['URL'],artwork['Circumference (cm)'],
+                    artwork['Depth (cm)'],artwork['Diameter (cm)'],
+                    artwork['Height (cm)'],artwork['Length (cm)'],
+                    artwork['Weight (kg)'],artwork['Width (cm)'],
+                    artwork['Seat Height (cm)'],artwork['Duration (sec.)'])
     lt.addLast(catalog['artwork'], ar)
 
     #artists = artwork['ConstituentID']
@@ -118,9 +118,9 @@ def newArtwork(objectID, title, constituentID, date, medium, dimensions, creditL
     artwork = {'ObjectID': '', 'Title': '','ConstituentID': '',
            'Date': '', 'Medium': '', 'Dimensions': '', 'CreditLine': '',
            'AccessionNumber': '', 'Classification': '', 'Department': '', 
-           'DateAdquired': '','Cataloged': '', 'URL': '', 'Circumference(cm)': '', 
-           'Depth(cm)': '', 'Diameter(cm)': '', 'Height(cm)': '', 'Length(cm)': '',
-           'Weight(kg)': '', 'Width(cm)': '', 'Seat Height(cm)': '', 'Duration(sec.)': ''}
+           'DateAcquired': '','Cataloged': '', 'URL': '', 'Circumference (cm)': '', 
+           'Depth (cm)': '', 'Diameter (cm)': '', 'Height (cm)': '', 'Length (cm)': '',
+           'Weight (kg)': '', 'Width (cm)': '', 'Seat Height (cm)': '', 'Duration (sec.)': ''}
     artwork['ObjectID'] = objectID
     artwork['Title'] = title
     artwork['ConstituentID'] = constituentID
@@ -131,18 +131,18 @@ def newArtwork(objectID, title, constituentID, date, medium, dimensions, creditL
     artwork['AccessionNumber'] = accessionNumber
     artwork['Classification'] = classification
     artwork['Department'] = department
-    artwork['DateAdquired'] = dateAdquired
+    artwork['DateAcquired'] = dateAdquired
     artwork['Cataloged'] = cataloged
     artwork['URL'] = url
-    artwork['Circumference(cm)'] = circumference
-    artwork['Depth(cm)'] = depth
-    artwork['Diameter(cm)'] = diameter
-    artwork['Height(cm)'] = height
-    artwork['Length(cm)'] = length
-    artwork['Weight(kg)'] = weight
-    artwork['Width(cm)'] = width
-    artwork['Seat Height(cm)'] = seatHeight
-    artwork['Duration(sec.)'] = duration
+    artwork['Circumference (cm)'] = circumference
+    artwork['Depth (cm)'] = depth
+    artwork['Diameter (cm)'] = diameter
+    artwork['Height (cm)'] = height
+    artwork['Length (cm)'] = length
+    artwork['Weight (kg)'] = weight
+    artwork['Width (cm)'] = width
+    artwork['Seat Height (cm)'] = seatHeight
+    artwork['Duration (sec.)'] = duration
     
     return artwork
     
@@ -160,8 +160,7 @@ def compareBeginDate(artist1, artist2):
         return 1
     return -1
 
-def compareratings(book1, book2):
-    return (date(book1['average_rating']) > float(book2['average_rating']))
+
 
 
 # Funciones de ordenamiento
