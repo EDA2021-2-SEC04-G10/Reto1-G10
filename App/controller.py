@@ -47,7 +47,7 @@ def loadData(catalog):
     """
     loadArtistas(catalog)
     loadObras(catalog)
-    sortArtistasC(catalog)
+    lista_artistasC(catalog)
     sortObrasA(catalog)
     sortObrasAT(catalog)
     sortObrasAN(catalog)
@@ -75,11 +75,11 @@ def loadObras(catalog):
 
 # Funciones de ordenamiento
 
-def sortArtistasC(catalog):
+def lista_artistasC(catalog):
     """
     Ordena los artistas en lista cronologica
     """
-    model.sortArtistasC(catalog)
+    model.lista_artistasC(catalog)
 
 def sortObrasA(catalog):
     """

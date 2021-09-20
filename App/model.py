@@ -217,7 +217,7 @@ def compareDate(artwork1, artwork2):
 
 # Funciones de ordenamiento
 
-def lista_artistas (añoi, añof, catalog):
+def lista_artistasC(añoi, añof, catalog):
     lista = lt.newList('ARRAY_LIST')
     artista = catalog['artist']
     for artist in artista:
