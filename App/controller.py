@@ -47,10 +47,8 @@ def loadData(catalog):
     """
     loadArtistas(catalog)
     loadObras(catalog)
-    lista_artistasC(catalog)
-    sortObrasA(catalog)
-    sortObrasAT(catalog)
-    sortObrasAN(catalog)
+    
+    
     
 
 def loadArtistas(catalog):
@@ -75,11 +73,12 @@ def loadObras(catalog):
 
 # Funciones de ordenamiento
 
-def lista_artistasC(catalog):
+def ordenarListaC(label1, label2, catalog):
     """
     Ordena los artistas en lista cronologica
     """
-    model.lista_artistasC(catalog)
+    lista = model.ordenarListaC(label1, label2, catalog)
+    return lista
 
 def sortObrasA(catalog):
     """
@@ -98,6 +97,14 @@ def sortObrasAN(catalog):
     Ordena las obras por la nacionalidad de su creador
     """
     model.sortObrasAN(catalog)
+
+
+def getNumero():
+
+    numero = model.getNumero()
+
+    return numero
+
 
 
 

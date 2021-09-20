@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from os import umask
 import config as cf
 import sys
 import controller
@@ -73,9 +74,16 @@ while True:
         loadData(catalog)
         print('Artistas cargados: ' + str(lt.size(catalog['artist'])))
         print('Obras cargadas: ' + str(lt.size(catalog['artwork'])))
-       
-
     elif int(inputs[0]) == 2:
+        label1 = input("Introduzca Año Inicial:")
+        label2 = input("Introduzca Año Inicial:")
+        lista = controller.ordenarListaC(int(label1), int(label2), catalog)
+        print("Lista Cronologica de los Artistas: ")
+        print(lista)
+    elif int(inputs[0]) == 3:
+        numero = controller.getNumero()
+        print(numero)
+        
         pass
 
     else:

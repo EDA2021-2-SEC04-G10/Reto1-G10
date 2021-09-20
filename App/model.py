@@ -157,19 +157,26 @@ def consultaañoartista (artista):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareBeginDate1 (artista, año, añof):
-    if (año == artista['BeginDate']):
+    añoc = int(artista['BeginDate'])
+    if (año == añoc):
         return 1
-    elif (año > artista['BeginDate']):
+    elif (año > añoc):
         return 0
-    elif (año < artista ['BeginDate']):
-        if añof == artista['BeginDate']:
+    elif (año < añoc):
+        if añof == añoc:
             return 1
-        elif añof > artista['BeginDate']:
+        elif añof > añoc:
             return 1
         else:
             return 0
 
 
+
+def getNumero():
+    b = 2-1
+    c = str(b)
+    a = int(c)
+    return a
 
 
 def compareBeginDate(artist1, artist2):
@@ -217,22 +224,40 @@ def compareDate(artwork1, artwork2):
 
 # Funciones de ordenamiento
 
+
+def ordenarListaC(añoi, añof, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    lista1 = lista_artistasC(añoi, añof, catalog)
+    lista2 = lista_artistasCR(añoi, añof, catalog)
+    for i in lista2:
+        for j in lista1:
+            if lista2[i] == lista1[int(j['BeginDate'])]:
+                lt.addLast(lista, j)
+    return lista
+
+
 def lista_artistasC(añoi, añof, catalog):
     lista = lt.newList('ARRAY_LIST')
-    artista = catalog['artist']
-    for artist in artista:
+    for artist in catalog:
         valor = compareBeginDate1 (artist, añoi, añof)
         if valor == 1:
             lt.addLast(artist)
-    size = lt.size(lista)
-    pos1 = 1
-    while pos1 <=size:
-        pos2 = pos1
-        
+            
+    
+    return lista
+
+
+def lista_artistasCR(añoi, añof, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    for artist in catalog:
+        valor = compareBeginDate1 (artist, añoi, añof)
+        if valor == 1:
+            lt.addLast(int(artist['BeginDate']))
+    lista.sort()
     return lista
 
 
 
 
-
-    
+            
+                
