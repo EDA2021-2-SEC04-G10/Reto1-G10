@@ -25,6 +25,7 @@
  """
 
 
+from typing import TYPE_CHECKING
 import config as cf
 import datetime
 from DISClib.ADT import list as lt
@@ -148,19 +149,90 @@ def newArtwork(objectID, title, constituentID, date, medium, dimensions, creditL
     
 
 # Funciones de consulta
+def consultaañoartista (artista):
+    año = artista['BeginDate']
+    return año
+
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+def compareBeginDate1 (artista, año, añof):
+    if (año == artista['BeginDate']):
+        return 1
+    elif (año > artista['BeginDate']):
+        return 0
+    elif (año < artista ['BeginDate']):
+        if añof == artista['BeginDate']:
+            return 1
+        elif añof > artista['BeginDate']:
+            return 1
+        else:
+            return 0
+
+
+
 
 def compareBeginDate(artist1, artist2):
-    x = artist1['BeginDate'].datetime()
-    if (artist1['BeginDate'] == artist2['BeginDate']):
-        return 0
-    elif (artist1['BeginDate'] > artist2['BeginDate']):
+    cadena1 = artist1['BeginDate']
+    año1 = cadena1[:4]
+    mes1 = cadena1[5:7]
+    dia1 = cadena1[-2:]
+
+    cadena2 = artist2['BeginDate']
+    año2 = cadena2[:4]
+    mes2 = cadena2[5:7]
+    dia2 = cadena2 [-2:]
+
+    if año1 > año2:
         return 1
-    return -1
+    elif año1 == año2:
+        if mes1 > mes2:
+            return 1
+        elif mes1 == mes2:
+            if dia1>dia2:
+                return 1 
+            elif dia1 == dia2:
+                return 0
+            else:
+                return -1
+        else:
+            return -1
+    else:
+        return -1
 
-
+def compareDate(artwork1, artwork2):
+    cadena1 = artwork1['Date']
+    
+    cadena2 = artwork2['Date']
+    
+    if  cadena1 > cadena2:
+        return 1
+    elif cadena1 < cadena2:
+        return -1
+    else:
+        return 0
+     
+            
 
 
 # Funciones de ordenamiento
+
+def lista_artistas (añoi, añof, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    artista = catalog['artist']
+    for artist in artista:
+        valor = compareBeginDate1 (artist, añoi, añof)
+        if valor == 1:
+            lt.addLast(artist)
+    size = lt.size(lista)
+    pos1 = 1
+    while pos1 <=size:
+        pos2 = pos1
+        
+    return lista
+
+
+
+
+
+    
