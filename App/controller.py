@@ -98,12 +98,22 @@ def sortObrasAN(catalog):
     """
     model.sortObrasAN(catalog)
 
+def transladoO(label, catalog):
 
-def getNumero():
+    lista = model.transladarO(label, catalog)
 
-    numero = model.getNumero()
+    return lista
 
-    return numero
+
+
+def darNObrasArtista(catalog, label):
+
+    f = model.darNObrasArtista(catalog, label)
+
+    return f
+
+
+
 
 
 

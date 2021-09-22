@@ -61,6 +61,15 @@ def loadData(catalog):
 
 catalog = None
 
+def printAuthorData(artist):
+    if artist:
+        print('Autor encontrado: ' + artist['ConstituentID'])
+        print('Promedio: ' + str(artist['DisplayName']))
+        print('Total de libros: ' + str(lt.size(artist['BeginDate'])))
+        
+    else:
+        print('No se encontro el autor')
+
 
 """
 Menu principal
@@ -80,11 +89,24 @@ while True:
         lista = controller.ordenarListaC(int(label1), int(label2), catalog)
         print("Lista Cronologica de los Artistas: ")
         print(lista)
-    elif int(inputs[0]) == 3:
-        numero = controller.getNumero()
-        print(numero)
+    elif int(inputs[0]) ==3:
+        label = input("Introduzca Nombre del Artista: ")
+        resultado = controller.darNObrasArtista(catalog, str(label))
+        print(resultado)
+    elif int(inputs[0]) == 4:
+        authorname = input("Nombre del autor a buscar: ")
+        author = controller.getBooksByAuthor(catalog, authorname)
+        printAuthorData(author)
+    
+    
         
-        pass
+    elif int(inputs[0]) == 5:
+        label = input("Introduzca departamento de transferencia:\n ")
+        lista = controller.transladoO(str(label), catalog)
+        print('Total de obras a transportar:')
+        print(str(lt.size(lista)))
+                
+        
 
     else:
         sys.exit(0)
