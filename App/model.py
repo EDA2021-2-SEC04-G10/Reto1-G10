@@ -153,6 +153,31 @@ def consultaañoartista (artista):
     año = artista['BeginDate']
     return año
 
+def consultaartistaID (id, catalog):
+    for i in lt.iterator(catalog):
+        if i['name'] == id:
+            return i['DisplayName']
+
+def consultaartistaporobra (artwork, catalog):
+    for i in lt.iterator(catalog):
+        if artwork['ConstituentID'] == i['name']:
+            return i['DisplayName']
+
+def consultanacionalidadartista (artwork, catalog):
+    lista = lt.newList()
+    artistas = catalog ['artist']
+    for i in lt.iterator(artistas):
+        if i['DisplayName'] == consultaartistaporobra(artwork, catalog):
+            lt.addLast(lista, i['Nationality'])
+    return lista
+    
+
+
+
+
+    
+
+
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -211,7 +236,21 @@ def compareDate(artwork1, artwork2):
         return -1
     else:
         return 0
-     
+
+def compareDate1 (artwork, añoi, añof)
+   if artwork['Date'] > 1:
+        if añoi == artwork['Date']:
+            return 1
+        elif añoi > artwork['Date']:
+            return 0
+        elif año < artwork['Date']:
+            if añof == artwork['Date']:
+                return 1
+            elif añof > artwork['Date']:
+                return 1
+            else: 
+                return 0
+        
             
 
 
@@ -228,7 +267,23 @@ def lista_artistas (añoi, añof, catalog):
     pos1 = 1
     while pos1 <=size:
         pos2 = pos1
-        
+
+    return lista
+
+def lista_adquisiciones (añoi, añof, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    obra = catalog['artwork']
+    for adq in obra:
+        valor = compareDate1(adq, añoi, añof)
+        if valor == 1:
+            lt.addLast(adq)
+    mayor = 0
+    for i in lt.iterator(lista):
+        if i > mayor:
+            mayor = i
+
+    
+
     return lista
 
 
