@@ -25,7 +25,9 @@
  """
 
 
+from DISClib.DataStructures.arraylist import addLast
 from typing import TYPE_CHECKING
+import time
 import config as cf
 import datetime
 from DISClib.ADT import list as lt
@@ -33,18 +35,17 @@ from DISClib.Algorithms.Sorting import shellsort as sa
 assert cf
 
 """
-Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
-los mismos.
+Se define la estructura de un catálogo de artistas y obras. 
+El catálogo tendrá dos listas, una para los artistas, otra para las obras.
 """
 
 # Construccion de modelos
 
 def newCatalog():
     """
-    Inicializa el catálogo de libros. Crea una lista vacia para guardar
-    todos los libros, adicionalmente, crea una lista vacia para los autores,
-    una lista vacia para los generos y una lista vacia para la asociación
-    generos y libros. Retorna el catalogo inicializado.
+    Inicializa el catálogo de artistas. Crea una lista vacia para guardar
+    todos los artistas, adicionalmente, crea una lista vacia para las obras.
+    Retorna el catalogo inicializado.
     """
     catalog = {'artist': None,
                'artwork': None}
@@ -153,10 +154,6 @@ def consultaañoartista (artista):
     año = artista['BeginDate']
     return año
 
-def consultaartistaID (id, catalog):
-    for i in lt.iterator(catalog):
-        if i['name'] == id:
-            return i['DisplayName']
 
 def consultaartistaporobra (artwork, catalog):
     for i in lt.iterator(catalog):
@@ -169,6 +166,7 @@ def consultanacionalidadartista (artwork, catalog):
     for i in lt.iterator(artistas):
         if i['DisplayName'] == consultaartistaporobra(artwork, catalog):
             lt.addLast(lista, i['Nationality'])
+
     return lista
     
 
@@ -176,24 +174,79 @@ def consultanacionalidadartista (artwork, catalog):
 
 
     
+def darNObrasArtista(catalog, artista):
+    count = 0
+    b = artista.lower()
+    bb = b.strip()
+    bbb = bb.strip(',') 
+    for artist in catalog['artist']:
+        artist = str(catalog['artist'].get('DisplayName'))
+        x = catalog['artist'].get('ConstituentID')
+        a = artist.lower()
+        aa = a.strip()
+        aaa = aa.strip(',')
+        if (aaa == bbb):
+            for artwork in lt.iterator(catalog['artwork']):
+                y = artwork.get('ConstituentID')
+                if (y == x):
+                    count +=1
+    return count
+
+def darNTecnicasArtista(catalog, artista):
+    lista = lt.newList()
+    count = 0
+    b = artista.lower()
+    bb = b.strip()
+    bbb = bb.strip(',') 
+    for artist in catalog['artist']:
+        artist = str(catalog['artist'].get('DisplayName'))
+        x = catalog['artist'].get('ConstituentID')
+        a = artist.lower()
+        aa = a.strip()
+        aaa = aa.strip(',')
+        if (aaa == bbb):
+            for artwork in lt.iterator(catalog['artwork']):
+                y = artwork.get('ConstituentID')
+                if (y == x):
+                    z = artwork.get('Medium')
+                    if z != None & lt.isPresent(lista, z)==0:
+                        addLast(lista, z)
+                        count +=1
+    return count
+
+#def getTecnicaArtista(catalog, artista):
+   
+   # return lista
+
 
 
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
+def compareartist(artist1, artist2):
+
+    return (int(artist1['ConstituentID'])>int(artist2['ConstituentID']))
+
+def compareartwork(artwork1, artwork2):
+
+    return (int(artwork1['ObjectID'])>int(artwork2['ObjectID']))
+
+    
+
 def compareBeginDate1 (artista, año, añof):
-    if (año == artista['BeginDate']):
+    añoc = int(artista)
+    if (año == añoc):
         return 1
-    elif (año > artista['BeginDate']):
+    elif (año > añoc):
         return 0
-    elif (año < artista ['BeginDate']):
-        if añof == artista['BeginDate']:
+    elif (año < añoc):
+        if añof == añoc:
             return 1
-        elif añof > artista['BeginDate']:
+        elif añof > añoc:
             return 1
         else:
             return 0
-
 
 
 
@@ -237,13 +290,13 @@ def compareDate(artwork1, artwork2):
     else:
         return 0
 
-def compareDate1 (artwork, añoi, añof)
+def compareDate1 (artwork, añoi, añof):
    if artwork['Date'] > 1:
         if añoi == artwork['Date']:
             return 1
         elif añoi > artwork['Date']:
             return 0
-        elif año < artwork['Date']:
+        elif añoi < artwork['Date']:
             if añof == artwork['Date']:
                 return 1
             elif añof > artwork['Date']:
@@ -256,38 +309,101 @@ def compareDate1 (artwork, añoi, añof)
 
 # Funciones de ordenamiento
 
-def lista_artistas (añoi, añof, catalog):
+
+def ordenarListaC(añoi, añof, catalog):
     lista = lt.newList('ARRAY_LIST')
-    artista = catalog['artist']
-    for artist in artista:
-        valor = compareBeginDate1 (artist, añoi, añof)
+    for artist in catalog['artist']:
+        valor = compareBeginDate1 (artist['BeginDate'], añoi, añof)
         if valor == 1:
             lt.addLast(artist)
-    size = lt.size(lista)
-    pos1 = 1
-    while pos1 <=size:
-        pos2 = pos1
 
-    return lista
+    listaf = ordenarnacionalidad (lista)
+    
+    return listaf
 
 def lista_adquisiciones (añoi, añof, catalog):
     lista = lt.newList('ARRAY_LIST')
     obra = catalog['artwork']
     for adq in obra:
-        valor = compareDate1(adq, añoi, añof)
+        valor = compareDate1(adq['Date'], añoi, añof)
         if valor == 1:
             lt.addLast(adq)
-    mayor = 0
-    for i in lt.iterator(lista):
-        if i > mayor:
-            mayor = i
+    listaf = ordenarnacionalidad2 (lista)
+    return listaf
+   
+def ordenar (año1, año2):
+    return (int(año1['BeginDate'])<int(año2['BeginDate']))
+
+def ordenar2 (año1, año2):
+    return (int(año1['Date'])<int(año2['Date']))
+
+def ordenarnacionalidad2 (lista):
+    sub_list = lt.subList(lista, 1, len(lista))
+    sub_list = sub_list.copy()
+    start_time = time.process_time()
+    sorted_list = sa.sort(sub_list, ordenar2)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
+
+def ordenarnacionalidad (lista):
+    sub_list = lt.subList(lista, 1, len(lista))
+    sub_list = sub_list.copy()
+    start_time = time.process_time()
+    sorted_list = sa.sort(sub_list, ordenar)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
+    
 
     
 
+def lista_artistasC(añoi, añof, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    for artist in catalog['artist']:
+        if catalog['artist'].get('BeginDate') != None:
+            valor = compareBeginDate1 (catalog['artist'].get('BeginDate'), añoi, añof)
+            if valor == 1:
+                lt.addLast(lista, int(artist['BeginDate']))
+    
     return lista
 
+def lista_artistasCR(añoi, añof, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    for artist in catalog['artist']:
+        valor = compareBeginDate1 (artist, añoi, añof)
+        if valor == 1:
+            lt.addLast(lista, int(artist['BeginDate']))
+    lista.sort()
+    return lista
+
+def transladarO(label, catalog):
+    lista = lt.newList('ARRAY_LIST')
+    catalogo = catalog['artwork']
+    for artwork in lt.iterator(catalogo):
+        if artwork != None:
+            dep = catalogo.get('Deparment')
+            d = str(dep)
+            if (d.lower()==label.lower()):
+                lt.addLast(lista, catalogo) 
+    return lista                       
+
+def sortArtist(catalog, size):
+    sub_list = lt.subList(catalog['artist'], 1, size)
+    sub_list = sub_list.copy()
+    start_time = time.process_time()
+    sorted_list = sa.sort(sub_list, compareartist)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
+
+def sortArtwork(catalog, size):
+    sub_list = lt.subList(catalog['artwork'], 1, size)
+    sub_list = sub_list.copy()
+    start_time = time.process_time()
+    sorted_list = sa.sort(sub_list, compareartwork)
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg, sorted_list
 
 
-
-
-    
